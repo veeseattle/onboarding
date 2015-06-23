@@ -23,6 +23,7 @@
   
   //backgroundcolor input
   [self.view setBackgroundColor:[UIColor colorWithRed:52/255.0 green:73/255.0 blue:94/255.0 alpha:1.0]];
+  
   //slides input
   NSArray *slides = @[
                       @{ @"image" : @"finances.png", @"text" : @"Having problems with your finances?"},
@@ -47,9 +48,12 @@
     UIImage *image = [UIImage imageNamed:slides[i][@"image"]];
     UIImageView *imageView = [[UIImageView alloc] init];
     
-    
+    if (image.size.height > 0) {
     imageView.frame = [self getFrame:image.size.width andiH:image.size.height andSlide:i andOffset:self.screen.size.height * 0.15];
-    
+    }
+    else {
+      NSLog(@"Images not found, please double check image file names and that they're within the same repository");
+    }
     imageView.image = image;
     [self.scroll addSubview:imageView];
     
@@ -60,7 +64,7 @@
     textView.editable = NO;
     textView.selectable = NO;
     textView.textAlignment = NSTextAlignmentCenter;
-    textView.font = [UIFont fontWithName:@"Helvetica Neue" size:17];
+    textView.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
     textView.textColor = [UIColor whiteColor];
     textView.backgroundColor = [UIColor clearColor];
     [self.scroll addSubview:textView];
